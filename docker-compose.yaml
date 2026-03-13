@@ -1,0 +1,12 @@
+services:
+  reduct:
+    build: .
+    image: reduct:latest
+    read_only: true
+    env_file:
+      - .env
+    environment:
+      CONFIG_FILE: /config.yaml
+    volumes:
+      - ./config.yaml:/config.yaml:ro
+    restart: unless-stopped
