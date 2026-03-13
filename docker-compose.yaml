@@ -1,0 +1,14 @@
+services:
+  reduct:
+    build: .
+    image: reduct:latest
+    read_only: true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    env_file:
+      - .env
+    environment:
+      CONFIG_FILE: /config.yaml
+    volumes:
+      - ./config.yaml:/config.yaml:ro
+    restart: on-failure:10

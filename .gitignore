@@ -7,6 +7,7 @@
 *.dll
 *.so
 *.dylib
+reduct
 
 # Test binary, built with `go test -c`
 *.test
@@ -26,6 +27,9 @@ go.work.sum
 
 # env file
 .env
+
+# real config file (use config.example.yaml as a template)
+config.yaml
 
 # Editor/IDE
 # .idea/

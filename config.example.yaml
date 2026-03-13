@@ -1,0 +1,12 @@
+redis:
+  # Address of the external Redis server (host:port).
+  addr: "localhost:6379"
+  # Redis database number (0–15).
+  db: 0
+
+channels:
+  # Messages received on any source channel are published to this target channel.
+  target: "output-channel"
+  sources:
+    - "source-channel-1"
+    - "source-channel-2"
