@@ -1,6 +1,6 @@
 module github.com/its-the-vibe/reduct
 
-go 1.24
+go 1.26.1
 
 require (
 	github.com/joho/godotenv v1.5.1
