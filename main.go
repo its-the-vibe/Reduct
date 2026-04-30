@@ -99,6 +99,7 @@ func main() {
 	defer stop()
 
 	if err := run(ctx, cfg); err != nil {
+		stop()
 		log.Fatalf("Service error: %v", err)
 	}
 }
