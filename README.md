@@ -1,5 +1,7 @@
 # Reduct
 
+![CI](https://github.com/its-the-vibe/Reduct/actions/workflows/ci.yaml/badge.svg)
+
 A Go service that fans-in multiple Redis Pub/Sub source channels into a single
 target channel.
 
@@ -109,3 +111,30 @@ docker run --rm \
   --read-only \
   reduct:latest
 ```
+
+## Development
+
+A `Makefile` is provided with the following targets:
+
+| Target | Description |
+|--------|-------------|
+| `make build` | Compile the project (`go build ./...`) |
+| `make test` | Run unit tests (`go test ./...`) |
+| `make lint` | Run [golangci-lint](https://golangci-lint.run/) |
+| `make ci` | Run lint followed by tests (used by CI) |
+
+Install `golangci-lint` before running `make lint` or `make ci`:
+
+```bash
+# macOS
+brew install golangci-lint
+
+# or via the official install script
+curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin latest
+```
+
+## CI
+
+The CI badge at the top of this file reflects the status of the latest run on
+the default branch. The workflow (`.github/workflows/ci.yaml`) runs on every
+push and pull request, executing `golangci-lint` and `go test ./...`.
