@@ -1,7 +1,10 @@
 # syntax=docker/dockerfile:1
 
 # ── build stage ──────────────────────────────────────────────────────────────
-FROM golang:1.26.6 AS builder
+FROM --platform=$BUILDPLATFORM golang:1.26.6-alpine AS builder
+
+ARG TARGETOS
+ARG TARGETARCH
 
 WORKDIR /build
 
@@ -9,11 +12,13 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -trimpath -ldflags="-s -w" -o reduct .
+RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -trimpath -ldflags="-s -w" -o reduct .
 
-# ── runtime stage (scratch) ───────────────────────────────────────────────────
-FROM scratch
+# ── runtime stage (distroless) ────────────────────────────────────────────────
+FROM gcr.io/distroless/static-debian13:nonroot
 
 COPY --from=builder /build/reduct /reduct
+
+USER nonroot:nonroot
 
 ENTRYPOINT ["/reduct"]
