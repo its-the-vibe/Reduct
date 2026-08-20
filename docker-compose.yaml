@@ -1,7 +1,8 @@
 services:
   reduct:
     build: .
-    image: reduct:latest
+    image: ghcr.io/its-the-vibe/reduct:latest
+    pull_policy: always
     read_only: true
     extra_hosts:
       - "host.docker.internal:host-gateway"
